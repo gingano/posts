@@ -1,5 +1,5 @@
 const initialState = {
-  posts: []
+  posts: [],
 }
 
 export default (state = initialState, action) => {
@@ -7,7 +7,7 @@ export default (state = initialState, action) => {
     case 'FILL_POSTS':
       return {
         ...state,
-        posts: action.value
+        posts: action.value,
       }
 
     default:
