@@ -1,4 +1,4 @@
-export const fillPosts = posts => ({
+export const fillPosts = (posts) => ({
   type: 'FILL_POSTS',
-  value: posts
+  value: posts,
 })
