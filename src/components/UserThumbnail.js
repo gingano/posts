@@ -14,6 +14,7 @@ const UserThumbnail = ({ user }) => {
         onClick={() => {
           dispatch(postsRequest(user.id))
         }}
+        className="user-thumbnail__button"
       >
         posts
       </Link>

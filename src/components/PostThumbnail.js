@@ -8,14 +8,15 @@ const PostThumbnail = ({ post }) => {
   const dispatch = useDispatch()
 
   return (
-    <div className="user-thumbnail">
-      <h2 className="user-thumbnail__title">{post.title}</h2>
-      <p className="user-thumbnail__body">{post.body}</p>
+    <div className="post-thumbnail">
+      <h2 className="post-thumbnail__title">{post.title}</h2>
+      <p className="post-thumbnail__body">{post.body}</p>
       <Link
         to={`/post#postId=${post.id}`}
         onClick={() => {
           dispatch(postRequest(post.id))
         }}
+        className="post-thumbnail__button"
       >
         details
       </Link>

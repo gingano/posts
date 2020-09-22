@@ -1,0 +1,29 @@
+.comment-thumbnail {
+  @extend %list-item;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__name,
+  &__body {
+    margin: 0;
+    margin-bottom: 5px;
+    text-align: center;
+  }
+
+  &__name {
+    @extend %title-2;
+  }
+
+  &__body {
+    @extend %body-2;
+  }
+
+  &__email {
+    @extend %small-button;
+
+    text-align: center;
+    margin-top: 10px;
+  }
+}

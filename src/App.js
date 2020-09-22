@@ -1,15 +1,15 @@
 import React from 'react'
-import './App.css'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import Users from './components/Users'
 import Posts from './components/Posts'
 import NewPost from './components/NewPost'
 import Post from './components/Post'
+import './styles/main.scss'
 
 function App() {
   return (
     <Router>
-      <div className="App">
+      <div className="App container">
         <Switch>
           <Route path="/post">
             <Post />

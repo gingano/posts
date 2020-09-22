@@ -12,10 +12,12 @@ const Posts = () => {
 
   return (
     <div className="posts">
-      <Link to="/new-post">add new post</Link>
+      <Link to="/new-post" className="posts__add-post-button">
+        add new post
+      </Link>
       <ul className="posts__list">
         {postsState.items.map((post) => (
-          <li key={`post-${post.id}`}>
+          <li className="posts__list-item" key={`post-${post.id}`}>
             <PostThumbnail post={post} />
           </li>
         ))}

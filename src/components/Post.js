@@ -5,6 +5,7 @@ import usePostRequest from '../hooks/usePostRequest'
 import useUsersRequest from '../hooks/useUsersRequest'
 import usePostsRequest from '../hooks/usePostsRequest'
 import { editPostRequest, deletePostRequest } from '../utils/requests'
+import CommentThumbnail from './CommentThumbnail'
 
 const Post = () => {
   const postsState = useSelector(({ posts }) => posts)
@@ -55,28 +56,40 @@ const Post = () => {
       <div className="post__info">
         {isEditing ? (
           <form className="post__form">
+            <label htmlFor="title" className="post__label">
+              Title
+            </label>
             <input
+              id="title"
               value={titleValue}
               onChange={(event) => {
                 setTitleValue(event.currentTarget.value)
               }}
               type="text"
-              className="post__title-input"
+              className="post__input"
               name="title"
               required
             />
-            <input
+            <label htmlFor="body" className="post__label">
+              Body
+            </label>
+            <textarea
+              id="body"
               value={bodyValue}
               onChange={(event) => {
                 setBodyValue(event.currentTarget.value)
               }}
               type="text"
-              className="post__title-input"
+              className="post__input post__input--textarea"
               name="body"
               required
             />
+            <label htmlFor="user" className="post__label">
+              Author
+            </label>
             <select
               name="user"
+              id="user"
               className="post__user-selector"
               onChange={(event) => {
                 setUserValue(event.currentTarget.value)
@@ -95,36 +108,39 @@ const Post = () => {
             <h2 className="post__title">{info.title}</h2>
             <p className="post__body">{info.body}</p>
             <p className="post__author">
+              Author:
+              <br />
               {usersState.items.length > 0
                 ? usersState.items.find((user) => user.id === info.userId).name
                 : null}
             </p>
           </div>
         )}
-        <button
-          onClick={handleEdit}
-          type="button"
-          className="post__info-button"
-        >
-          {isEditing ? 'Save' : 'Edit'}
-        </button>
-        <button
-          onClick={handleDelete}
-          type="button"
-          className="post__info-button"
-        >
-          Delete
-        </button>
+        <div className="post__info-buttons">
+          <button
+            onClick={handleEdit}
+            type="button"
+            className="post__info-button"
+          >
+            {isEditing ? 'Save' : 'Edit'}
+          </button>
+          <button
+            onClick={handleDelete}
+            type="button"
+            className="post__info-button post__info-button--delete"
+          >
+            Delete
+          </button>
+        </div>
       </div>
 
       <ul className="post__comments-list">
         {comments.map((comment) => (
-          <li key={`comment-${comment.id}`} className="post__comment">
-            <h3 className="post__comment-name">{comment.name}</h3>
-            <p className="post__comment-body">{comment.body}</p>
-            <a href={`mailto:${comment.email}`} className="post__comment-email">
-              {comment.email}
-            </a>
+          <li
+            key={`comment-${comment.id}`}
+            className="post__comments-list-item"
+          >
+            <CommentThumbnail comment={comment} />
           </li>
         ))}
       </ul>
