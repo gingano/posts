@@ -1,0 +1,26 @@
+.post-thumbnail {
+  @extend %list-item;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__title,
+  &__body {
+    margin: 0;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+
+  &__title {
+    @extend %title-1;
+  }
+
+  &__body {
+    @extend %body-1;
+  }
+
+  &__button {
+    @extend %small-button;
+  }
+}

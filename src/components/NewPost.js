@@ -37,30 +37,41 @@ const NewPost = () => {
   return (
     <div className="new-post">
       <form onSubmit={formSubmit} className="new-post__form">
+        <label htmlFor="title" className="new-post__label">
+          Title
+        </label>
         <input
           id="title"
           type="text"
-          className="new-post__form-input"
+          className="new-post__input"
           value={titleValue}
           onChange={(event) => {
             setTitleValue(event.currentTarget.value)
           }}
+          placeholder="Post title"
           required
         />
-        <input
+        <label htmlFor="body" className="new-post__label">
+          Body
+        </label>
+        <textarea
           id="body"
           type="text"
-          className="new-post__form-input"
+          className="new-post__input new-post__input--textarea"
           value={bodyValue}
           onChange={(event) => {
             setBodyValue(event.currentTarget.value)
           }}
+          placeholder="Post body"
           required
         />
+        <label htmlFor="user" className="new-post__label">
+          Author
+        </label>
         <select
           name="user"
           id="user"
-          className="new-post__form-selector"
+          className="new-post__user-selector"
           onChange={(event) => {
             setUserValue(event.currentTarget.value)
           }}
@@ -72,7 +83,7 @@ const NewPost = () => {
             </option>
           ))}
         </select>
-        <button type="submit" className="new-post__form-button">
+        <button type="submit" className="new-post__button">
           submit
         </button>
       </form>

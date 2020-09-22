@@ -1,0 +1,64 @@
+%big-button, %small-button, %red-button {
+  @extend %button-font;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: 0.1s;
+  box-sizing: border-box;
+  border: none;
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+  max-width: 100%;
+  cursor: pointer;
+
+  @include width-md {
+    transition: 0.3s;
+  }
+}
+
+%big-button, %small-button {
+  background-color: $color-light-green;
+
+  &:active {
+    background-color: $color-green;
+  }
+
+  @include width-md {
+    &:hover {
+      background-color: $color-green;
+    }
+  }
+}
+
+%big-button {
+  padding: 10px 30px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+
+  @include width-md {
+    &:hover {
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    }
+  }
+}
+
+%small-button {
+  padding: 10px;
+  border-radius: 5px;
+}
+
+%red-button {
+  background-color: $color-light-red;
+
+  &:active {
+    background-color: $color-red;
+  }
+
+  @include width-md {
+    &:hover {
+      background-color: $color-red;
+    }
+  }
+}

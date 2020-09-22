@@ -1,0 +1,24 @@
+.users {
+  display: flex;
+  flex-direction: column;
+
+  &__all-posts-button {
+    @extend %big-button;
+
+    align-self: center;
+    margin-top: 15px;
+  }
+
+  &__list {
+    list-style: none;
+    padding: 0;
+  }
+
+  &__list-item {
+    margin-top: 10px;
+
+    &:first-child {
+      margin: 0;
+    }
+  }
+}

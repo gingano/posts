@@ -17,12 +17,13 @@ const Users = () => {
         onClick={() => {
           dispatch(postsRequest(-1))
         }}
+        className="users__all-posts-button"
       >
         all posts
       </Link>
       <ul className="users__list">
         {usersState.items.map((user) => (
-          <li key={`user-${user.id}`}>
+          <li key={`user-${user.id}`} className="users__list-item">
             <UserThumbnail user={user} />
           </li>
         ))}

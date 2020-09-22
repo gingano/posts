@@ -1,0 +1,18 @@
+.user-thumbnail {
+  @extend %list-item;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  &__name {
+    @extend %title-1;
+
+    margin: 0;
+    margin-right: 10px;
+  }
+
+  &__button {
+    @extend %small-button;
+  }
+}
