@@ -16,7 +16,7 @@ function usePostsRequest(dispatch, { userId, allPosts }) {
     } else if (!locationHash && allPosts.length > 0) {
       dispatch(setAllPostsToItems())
     }
-  }, [allPosts])
+  }, [dispatch, userId, allPosts])
 }
 
 export default usePostsRequest

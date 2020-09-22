@@ -10,7 +10,7 @@ function usePostRequest(dispatch, { currentPost: { info, comments } }) {
     ) {
       dispatch(postRequest(Number(locationHash.split('=')[1])))
     }
-  }, [info, comments])
+  }, [dispatch, info, comments])
 }
 
 export default usePostRequest
