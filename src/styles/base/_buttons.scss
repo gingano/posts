@@ -12,6 +12,7 @@
   outline: none;
   max-width: 100%;
   cursor: pointer;
+  word-break: break-all;
 
   @include width-md {
     transition: 0.3s;
