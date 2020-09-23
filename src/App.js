@@ -6,6 +6,7 @@ import Posts from './components/Posts'
 import NewPost from './components/NewPost'
 import Post from './components/Post'
 import ScrollToTop from './components/ScrollToTop'
+import NotFound from './components/NotFound'
 import './styles/main.scss'
 
 function App() {
@@ -15,6 +16,9 @@ function App() {
         <Preloader />
         <ScrollToTop />
         <Switch>
+          <Route path="/404">
+            <NotFound />
+          </Route>
           <Route path="/post">
             <Post />
           </Route>

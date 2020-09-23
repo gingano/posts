@@ -75,7 +75,7 @@ const NewPost = () => {
           id="user"
           className="new-post__user-selector"
           onChange={(event) => {
-            setUserValue(event.currentTarget.value)
+            setUserValue(Number(event.currentTarget.value))
           }}
           value={userValue}
         >

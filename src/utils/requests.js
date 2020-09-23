@@ -28,6 +28,9 @@ export const usersRequest = () => (dispatch) => {
       dispatch(setUsers(json))
       dispatch(setIsVisible(false))
     })
+    .catch(() => {
+      window.location.replace('/404')
+    })
 }
 
 export const postsRequest = (userId, history, linkTo = '/') => (dispatch) => {
@@ -51,6 +54,9 @@ export const postsRequest = (userId, history, linkTo = '/') => (dispatch) => {
       return response.json()
     })
     .then((json) => {
+      if (json.length === 0) {
+        window.location.replace('/404')
+      }
       if (userId === -1) {
         dispatch(setAllPosts(json))
         dispatch(setIsVisible(false))
@@ -62,6 +68,9 @@ export const postsRequest = (userId, history, linkTo = '/') => (dispatch) => {
       if (history) {
         history.push(linkTo)
       }
+    })
+    .catch(() => {
+      window.location.replace('/404')
     })
 }
 
@@ -85,6 +94,9 @@ export const addPostRequest = (object, history) => (dispatch) => {
       dispatch(addPost(json))
       history.push('/posts')
       dispatch(setIsVisible(false))
+    })
+    .catch(() => {
+      window.location.replace('/404')
     })
 }
 
@@ -121,6 +133,9 @@ export const postRequest = (postId, history, linkTo = '/') => (dispatch) => {
         setPost(post)
       }
     })
+    .catch(() => {
+      window.location.replace('/404')
+    })
 
   fetch(`https://jsonplaceholder.typicode.com/comments?postId=${postId}`, {
     method: 'GET',
@@ -142,6 +157,9 @@ export const postRequest = (postId, history, linkTo = '/') => (dispatch) => {
       if (Object.keys(post).length === 2) {
         setPost(post)
       }
+    })
+    .catch(() => {
+      window.location.replace('/404')
     })
 }
 
@@ -165,6 +183,9 @@ export const editPostRequest = (postId, object, setIsEditing) => (dispatch) => {
       dispatch(editPost(json))
       setIsEditing(false)
       dispatch(setIsVisible(false))
+    })
+    .catch(() => {
+      window.location.replace('/404')
     })
 }
 
@@ -190,5 +211,8 @@ export const deletePostRequest = (postId, setIsEditing, history) => (
       setIsEditing(false)
       history.push('/posts')
       dispatch(setIsVisible(false))
+    })
+    .catch(() => {
+      window.location.replace('/404')
     })
 }
