@@ -112,51 +112,49 @@ export const postRequest = (postId, history, linkTo = '/') => (dispatch) => {
     }
   }
 
-  fetch(`https://jsonplaceholder.typicode.com/posts/${postId}`, {
-    method: 'GET',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-    mode: 'cors',
-  })
-    .then((response) => {
-      if (!response.ok) {
-        throw response
-      }
-      return response.json()
-    })
-    .then((json) => {
-      post.info = json
+  const postFetch = fetch(
+    `https://jsonplaceholder.typicode.com/posts/${postId}`,
+    {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      mode: 'cors',
+    }
+  )
 
-      if (Object.keys(post).length === 2) {
-        setPost(post)
-      }
-    })
-    .catch(() => {
-      window.location.replace('/404')
-    })
+  const commentsFetch = fetch(
+    `https://jsonplaceholder.typicode.com/comments?postId=${postId}`,
+    {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      mode: 'cors',
+    }
+  )
 
-  fetch(`https://jsonplaceholder.typicode.com/comments?postId=${postId}`, {
-    method: 'GET',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-    mode: 'cors',
-  })
-    .then((response) => {
-      if (!response.ok) {
-        throw response
-      }
-      return response.json()
-    })
-    .then((json) => {
-      post.comments = json
+  Promise.all([postFetch, commentsFetch])
+    .then((responses) => responses)
+    .then((responses) =>
+      Promise.all(
+        responses.map((response) => {
+          if (!response.ok) {
+            throw response
+          }
+          return response.json()
+        })
+      )
+    )
+    .then((jsons) => {
+      const [info, comments] = jsons
 
-      if (Object.keys(post).length === 2) {
-        setPost(post)
-      }
+      post.info = info
+      post.comments = comments
+
+      setPost(post)
     })
     .catch(() => {
       window.location.replace('/404')
