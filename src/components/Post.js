@@ -29,7 +29,9 @@ const Post = () => {
     setUserValue(info ? info.userId : 1)
   }, [info])
 
-  const handleEdit = () => {
+  const handleEdit = (event) => {
+    event.preventDefault()
+
     if (!isEditing) {
       setIsEditing(true)
     } else {
@@ -55,7 +57,7 @@ const Post = () => {
     <div className="post">
       <div className="post__info">
         {isEditing ? (
-          <form className="post__form">
+          <form id="edit-form" className="post__form" onSubmit={handleEdit}>
             <label htmlFor="title" className="post__label">
               Title
             </label>
@@ -118,8 +120,9 @@ const Post = () => {
         )}
         <div className="post__info-buttons">
           <button
-            onClick={handleEdit}
-            type="button"
+            onClick={!isEditing ? handleEdit : null}
+            type="submit"
+            form="edit-form"
             className="post__info-button"
           >
             {isEditing ? 'Save' : 'Edit'}
