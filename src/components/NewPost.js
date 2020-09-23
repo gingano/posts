@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom'
 import useUsersRequest from '../hooks/useUsersRequest'
 import usePostsRequest from '../hooks/usePostsRequest'
 import { addPostRequest } from '../utils/requests'
+import { setIsVisible } from '../redux/actions/preloader'
 
 const NewPost = () => {
   const [titleValue, setTitleValue] = useState('')
@@ -19,6 +20,7 @@ const NewPost = () => {
   const formSubmit = (event) => {
     event.preventDefault()
 
+    dispatch(setIsVisible(true))
     dispatch(
       addPostRequest(
         {

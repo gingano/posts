@@ -7,6 +7,7 @@ import {
   editPost,
   deletePost,
 } from '../redux/actions/posts'
+import { setIsVisible } from '../redux/actions/preloader'
 
 export const usersRequest = () => (dispatch) => {
   fetch(`https://jsonplaceholder.typicode.com/users`, {
@@ -25,13 +26,14 @@ export const usersRequest = () => (dispatch) => {
     })
     .then((json) => {
       dispatch(setUsers(json))
+      dispatch(setIsVisible(false))
     })
     .catch(() => {
       window.location.replace('/404')
     })
 }
 
-export const postsRequest = (userId) => (dispatch) => {
+export const postsRequest = (userId, history, linkTo = '/') => (dispatch) => {
   fetch(
     `https://jsonplaceholder.typicode.com/posts${
       userId !== -1 ? `?userId=${userId}` : ``
@@ -57,8 +59,14 @@ export const postsRequest = (userId) => (dispatch) => {
       }
       if (userId === -1) {
         dispatch(setAllPosts(json))
+        dispatch(setIsVisible(false))
       } else {
         dispatch(setPosts(userId, json))
+        dispatch(setIsVisible(false))
+      }
+
+      if (history) {
+        history.push(linkTo)
       }
     })
     .catch(() => {
@@ -85,59 +93,68 @@ export const addPostRequest = (object, history) => (dispatch) => {
     .then((json) => {
       dispatch(addPost(json))
       history.push('/posts')
+      dispatch(setIsVisible(false))
     })
     .catch(() => {
       window.location.replace('/404')
     })
 }
 
-export const postRequest = (postId) => (dispatch) => {
+export const postRequest = (postId, history, linkTo = '/') => (dispatch) => {
   const post = {}
-  fetch(`https://jsonplaceholder.typicode.com/posts/${postId}`, {
-    method: 'GET',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-    mode: 'cors',
-  })
-    .then((response) => {
-      if (!response.ok) {
-        throw response
-      }
-      return response.json()
-    })
-    .then((json) => {
-      post.info = json
 
-      if (Object.keys(post).length === 2) {
-        dispatch(setCurrentPost(post))
-      }
-    })
-    .catch(() => {
-      window.location.replace('/404')
-    })
+  const setPost = (currentPost) => {
+    dispatch(setCurrentPost(currentPost))
+    dispatch(setIsVisible(false))
 
-  fetch(`https://jsonplaceholder.typicode.com/comments?postId=${postId}`, {
-    method: 'GET',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-    mode: 'cors',
-  })
-    .then((response) => {
-      if (!response.ok) {
-        throw response
-      }
-      return response.json()
-    })
-    .then((json) => {
-      post.comments = json
+    if (history) {
+      history.push(linkTo)
+    }
+  }
 
-      if (Object.keys(post).length === 2) {
-        dispatch(setCurrentPost(post))
-      }
+  const postFetch = fetch(
+    `https://jsonplaceholder.typicode.com/posts/${postId}`,
+    {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      mode: 'cors',
+    }
+  )
+
+  const commentsFetch = fetch(
+    `https://jsonplaceholder.typicode.com/comments?postId=${postId}`,
+    {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      mode: 'cors',
+    }
+  )
+
+  Promise.all([postFetch, commentsFetch])
+    .then((responses) => responses)
+    .then((responses) =>
+      Promise.all(
+        responses.map((response) => {
+          if (!response.ok) {
+            throw response
+          }
+          return response.json()
+        })
+      )
+    )
+    .then((jsons) => {
+      const [info, comments] = jsons
+
+      post.info = info
+      post.comments = comments
+
+      setPost(post)
     })
     .catch(() => {
       window.location.replace('/404')
@@ -163,6 +180,7 @@ export const editPostRequest = (postId, object, setIsEditing) => (dispatch) => {
     .then((json) => {
       dispatch(editPost(json))
       setIsEditing(false)
+      dispatch(setIsVisible(false))
     })
     .catch(() => {
       window.location.replace('/404')
@@ -190,6 +208,7 @@ export const deletePostRequest = (postId, setIsEditing, history) => (
       dispatch(deletePost(postId))
       setIsEditing(false)
       history.push('/posts')
+      dispatch(setIsVisible(false))
     })
     .catch(() => {
       window.location.replace('/404')
