@@ -8,7 +8,7 @@ const NotFound = () => {
 
   useEffect(() => {
     dispatch(setIsVisible(false))
-  }, [])
+  }, [dispatch])
 
   return (
     <div className="not-found">
