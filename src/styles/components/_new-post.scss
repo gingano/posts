@@ -18,6 +18,8 @@
   }
 
   &__label {
+    @extend %title-2;
+
     margin-bottom: 5px;
   }
 
