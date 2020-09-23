@@ -97,6 +97,13 @@
     list-style: none;
   }
 
+  &__comments-title {
+    @extend %title-1;
+
+    text-transform: uppercase;
+    text-align: center;
+  }
+
   &__comments-list-item {
     margin-top: 10px;
 
