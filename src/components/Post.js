@@ -135,6 +135,7 @@ const Post = () => {
       </div>
 
       <ul className="post__comments-list">
+        <p className="post__comments-title">Comments</p>
         {comments.map((comment) => (
           <li
             key={`comment-${comment.id}`}
