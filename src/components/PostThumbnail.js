@@ -1,25 +1,33 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Link } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { postRequest } from '../utils/requests'
+import { setIsVisible } from '../redux/actions/preloader'
 
 const PostThumbnail = ({ post }) => {
   const dispatch = useDispatch()
+
+  const history = useHistory()
+
+  const handlePost = (postId) => {
+    dispatch(setIsVisible(true))
+    dispatch(postRequest(postId, history, `/post#postId=${postId}`))
+  }
 
   return (
     <div className="post-thumbnail">
       <h2 className="post-thumbnail__title">{post.title}</h2>
       <p className="post-thumbnail__body">{post.body}</p>
-      <Link
-        to={`/post#postId=${post.id}`}
+      <button
+        type="button"
         onClick={() => {
-          dispatch(postRequest(post.id))
+          handlePost(post.id)
         }}
         className="post-thumbnail__button"
       >
         details
-      </Link>
+      </button>
     </div>
   )
 }

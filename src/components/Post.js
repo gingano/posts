@@ -6,6 +6,7 @@ import useUsersRequest from '../hooks/useUsersRequest'
 import usePostsRequest from '../hooks/usePostsRequest'
 import { editPostRequest, deletePostRequest } from '../utils/requests'
 import CommentThumbnail from './CommentThumbnail'
+import { setIsVisible } from '../redux/actions/preloader'
 
 const Post = () => {
   const postsState = useSelector(({ posts }) => posts)
@@ -33,6 +34,7 @@ const Post = () => {
     if (!isEditing) {
       setIsEditing(true)
     } else {
+      dispatch(setIsVisible(true))
       dispatch(
         editPostRequest(
           info.id,
@@ -48,6 +50,7 @@ const Post = () => {
   }
 
   const handleDelete = () => {
+    dispatch(setIsVisible(true))
     dispatch(deletePostRequest(info.id, setIsEditing, history))
   }
 

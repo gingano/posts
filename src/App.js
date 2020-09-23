@@ -1,5 +1,6 @@
 import React from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import Preloader from './components/Preloader'
 import Users from './components/Users'
 import Posts from './components/Posts'
 import NewPost from './components/NewPost'
@@ -10,6 +11,7 @@ function App() {
   return (
     <Router>
       <div className="App container">
+        <Preloader />
         <Switch>
           <Route path="/post">
             <Post />
