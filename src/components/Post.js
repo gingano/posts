@@ -112,9 +112,8 @@ const Post = () => {
             <p className="post__author">
               Author:
               <br />
-              {usersState.items.length > 0
-                ? usersState.items.find((user) => user.id === info.userId).name
-                : null}
+              {usersState.items.length > 0 &&
+                usersState.items.find((user) => user.id === info.userId).name}
             </p>
           </div>
         )}
