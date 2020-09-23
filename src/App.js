@@ -31,6 +31,9 @@ function App() {
           <Route path="/">
             <Users />
           </Route>
+          <Route>
+            <NotFound />
+          </Route>
         </Switch>
       </div>
     </Router>
