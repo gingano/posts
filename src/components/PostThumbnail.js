@@ -15,9 +15,8 @@ const PostThumbnail = ({ post }) => {
       <p className="post-thumbnail__author">
         Author:
         <br />
-        {usersState.items.length > 0
-          ? usersState.items.find((user) => user.id === post.userId).name
-          : null}
+        {usersState.items.length > 0 &&
+          usersState.items.find((user) => user.id === post.userId).name}
       </p>
       <Link
         to={`/post#postId=${post.id}`}

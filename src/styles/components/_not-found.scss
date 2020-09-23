@@ -1,0 +1,16 @@
+.not-found {
+  min-height: 100vh;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  &__title {
+    @extend %title-1;
+  }
+
+  &__link {
+    @extend %big-button;
+  }
+}
