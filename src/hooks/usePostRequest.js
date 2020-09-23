@@ -9,6 +9,8 @@ function usePostRequest(dispatch, { currentPost: { info, comments } }) {
       (!info || !comments)
     ) {
       dispatch(postRequest(Number(locationHash.split('=')[1])))
+    } else if (!locationHash) {
+      window.location.replace('/404')
     }
   }, [dispatch, info, comments])
 }
