@@ -5,6 +5,7 @@ import Users from './components/Users'
 import Posts from './components/Posts'
 import NewPost from './components/NewPost'
 import Post from './components/Post'
+import ScrollToTop from './components/ScrollToTop'
 import './styles/main.scss'
 
 function App() {
@@ -12,6 +13,7 @@ function App() {
     <Router>
       <div className="App container">
         <Preloader />
+        <ScrollToTop />
         <Switch>
           <Route path="/post">
             <Post />
